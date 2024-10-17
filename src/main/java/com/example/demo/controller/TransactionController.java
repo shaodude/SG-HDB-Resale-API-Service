@@ -20,7 +20,8 @@ import jakarta.validation.constraints.Min;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import com.example.demo.dto.ApiResponse;
-
+import com.example.demo.dto.PaginatedApiResponse;
+import com.example.demo.dto.ResalePriceDTO;
 import com.example.demo.exceptions.ResourceNotFoundException;
 
 
@@ -42,18 +43,18 @@ public class TransactionController {
         // Fetch paginated transactions
         Page<Transaction> transactionsPage = transactionRepository.findAll(paging);
 
-            // Check if the requested page is out of range
-            if (page >= transactionsPage.getTotalPages()) {
-                // Return 404 with "Page not found" message if the requested page exceeds total pages
-                return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(new ApiResponse<>(404, "Page not found. The requested page number exceeds the total pages available."));
-            }
+        // Check if the requested page is out of range
+        if (page >= transactionsPage.getTotalPages()) {
+            // Return 404 with "Page not found" message if the requested page exceeds total pages
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse<>(404, "Page not found. The requested page number exceeds the total pages available."));
+        }
 
         // Extract the content (list of transactions) from the Page
         List<Transaction> transactions = transactionsPage.getContent();
 
         // Create ApiResponse with pagination details and data
-        ApiResponse<List<Transaction>> response = new ApiResponse<>(200, "success", transactionsPage, transactions);
+        ApiResponse<List<Transaction>> response = new PaginatedApiResponse<>(200, "success", transactionsPage, transactions);
 
         // Return the response
         return ResponseEntity.ok(response);
@@ -119,7 +120,7 @@ public class TransactionController {
             List<Transaction> transactions = transactionsPage.getContent();
 
             // Create ApiResponse with pagination details and data
-            ApiResponse<List<Transaction>> response = new ApiResponse<>(200, "success", transactionsPage, transactions);
+            ApiResponse<List<Transaction>> response = new PaginatedApiResponse<>(200, "success", transactionsPage, transactions);
 
             // Return the response
             return ResponseEntity.ok(response);
@@ -132,15 +133,24 @@ public class TransactionController {
 
     // Get average resale price group by input street_name, flat_type
     @GetMapping("/transactions/average/resale-price")
-    public ResponseEntity<ApiResponse<List<Object[]>>> getAverageResalePriceByStreetNameAndFlatType(
+    public ResponseEntity<ApiResponse<List<ResalePriceDTO>>> getAverageResalePriceByStreetNameAndFlatType(
             @RequestParam(required = false) String streetName,
             @RequestParam(required = false) String flatType) {
         try {
             // Fetch average resale prices based on the input filters
             List<Object[]> results = transactionRepository.findAverageResalePriceByStreetNameAndFlatType(streetName, flatType);
+
+            // Map the results to ResalePriceDTO objects
+            List<ResalePriceDTO> resalePriceDTOList = results.stream()
+                .map(result -> new ResalePriceDTO(
+                    (String) result[0],  // streetName
+                    (String) result[1],  // flatType
+                    ((Number) result[2]).doubleValue()  // averageResalePrice
+                ))
+                .collect(Collectors.toList());
     
-            // Create ApiResponse with the data
-            ApiResponse<List<Object[]>> response = new ApiResponse<>(200, "success", results);
+            // Create ApiResponse with the mapped DTO data
+            ApiResponse<List<ResalePriceDTO>> response = new ApiResponse<>(200, "success", resalePriceDTOList);
     
             // Return the response
             return ResponseEntity.ok(response);
