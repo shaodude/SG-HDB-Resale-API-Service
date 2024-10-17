@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/shaodude/SG-HDB-Resale-API-Service/static/css/main.f855e6bc.css",
+    "main.js": "/shaodude/SG-HDB-Resale-API-Service/static/js/main.b42c1ecb.js",
+    "static/js/453.8ab44547.chunk.js": "/shaodude/SG-HDB-Resale-API-Service/static/js/453.8ab44547.chunk.js",
+    "static/media/logo.svg": "/shaodude/SG-HDB-Resale-API-Service/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/shaodude/SG-HDB-Resale-API-Service/index.html",
+    "main.f855e6bc.css.map": "/shaodude/SG-HDB-Resale-API-Service/static/css/main.f855e6bc.css.map",
+    "main.b42c1ecb.js.map": "/shaodude/SG-HDB-Resale-API-Service/static/js/main.b42c1ecb.js.map",
+    "453.8ab44547.chunk.js.map": "/shaodude/SG-HDB-Resale-API-Service/static/js/453.8ab44547.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f855e6bc.css",
+    "static/js/main.b42c1ecb.js"
+  ]
+}
