@@ -18,14 +18,14 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
-    "gh-pages": "^6.2.0"
+    "gh-pages": "^5.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
+    "predploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
