@@ -236,7 +236,7 @@ function App() {
             <Toolbar />
             <Box component="section" sx={{ marginBottom: 12 }}>
               <Box className="intro" sx={{ marginBottom: 4 }}>
-                <Typography variant="h3">Introductionss</Typography>
+                <Typography variant="h3">Introduction</Typography>
               </Box>
               <Box>
                 <DefaultSubSection
