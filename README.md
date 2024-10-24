@@ -6,7 +6,7 @@ For the full project documentation, visit [here](https://shaodude.github.io/SG-H
 
 # Project Features
 
-- Raw data is sourced from [https://data.gov.sg/].
+- Raw data is sourced from [Singapore's Open Data](https://data.gov.sg/).
 - The data is processed and stored in a PostgreSQL database hosted on [Supabase](https://supabase.com/).
 - Six API endpoints are set up using Spring Boot to allow users to access key data and insights.
 
