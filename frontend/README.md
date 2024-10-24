@@ -20,10 +20,8 @@ You may also see any lint errors in the console.
 npm test
 ```
 
-Launches the test runner in the interactive watch mode.\
+Launches the test runner in the interactive watch mode.
 
 ## Deployment
 
-A deployment script has been setup using gh-pages for deployment with target build folder.
-
-### `npm run deploy`
+A deployment script has been setup using gh-pages for deployment with target build folder. This can be executed to build the project and publish the changes to the live website.
