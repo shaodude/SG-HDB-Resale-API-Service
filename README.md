@@ -2,7 +2,7 @@
 
 This is a personal project involving the development of a Java Spring Boot backend API service. It is being created in a personal capacity for learning and experimentation, without any commercial intent.
 
-For the full project documentation, visit [here](https://shaodude.github.io/SG-HDB-Resale-API-Service/).
+For the full project documentation, visit [here](https://shaodude.github.io/SG-HDB-Resale-API-Service/) - Work in Progress.
 
 # Project Features
 
