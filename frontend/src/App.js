@@ -110,17 +110,41 @@ const core_fourth_response = `{
 function App() {
   const sectionsData = [
     { label: "Introduction", ref: useRef(null), className: "intro" },
-    { label: "Core Events", ref: useRef(null), className: "core_first" },
-    { label: "Get Transactions", ref: useRef(null), className: "core_second" },
+    { label: "Get Transactions", ref: useRef(null), className: "core_first" },
     {
       label: "Get Transaction by Id",
       ref: useRef(null),
-      className: "core_third",
+      className: "core_second",
     },
     {
       label: "Get Transactions by Price",
       ref: useRef(null),
+      className: "core_third",
+    },
+    {
+      label: "Get Average Price",
+      ref: useRef(null),
       className: "core_fourth",
+    },
+    {
+      label: "Get Distinct Flat Types",
+      ref: useRef(null),
+      className: "helper_first",
+    },
+    {
+      label: "Get Distinct Street Names",
+      ref: useRef(null),
+      className: "helper_second",
+    },
+    {
+      label: "Sample Use Cases",
+      ref: useRef(null),
+      className: "usecases",
+    },
+    {
+      label: "Project Roadmap",
+      ref: useRef(null),
+      className: "roadmap",
     },
   ];
 
@@ -129,7 +153,7 @@ function App() {
   const handleListItemClick = (event, index) => {
     // Move to a certain div on the page based on the index
     setSelectedIndex(index);
-
+    console.log(sectionsData[index]);
     const targetElement = sectionsData[index].ref.current;
 
     if (targetElement) {
@@ -146,7 +170,7 @@ function App() {
     }
   };
 
-  const [expanded, setExpanded] = React.useState("panel1");
+  const [expanded, setExpanded] = React.useState(null);
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -240,7 +264,7 @@ function App() {
         <Divider />
         <List disablePadding>
           <ListItem key={"Helper Events"} disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={(event) => handleListItemClick(event, 5)}>
               <ListItemText primary={"Helper Events"} />
             </ListItemButton>
           </ListItem>
@@ -273,15 +297,6 @@ function App() {
             onClick={(event) => handleListItemClick(event, 8)}
           >
             <ListItemText primary={"Project Roadmap"} />
-          </ListItemButton>
-        </ListItem>
-        <Divider />
-        <ListItem key={"Others"} disablePadding>
-          <ListItemButton
-            selected={selectedIndex === 9}
-            onClick={(event) => handleListItemClick(event, 9)}
-          >
-            <ListItemText primary={"Others"} />
           </ListItemButton>
         </ListItem>
       </Drawer>
@@ -336,12 +351,12 @@ function App() {
   const CoreEvents = () => {
     return (
       <div>
-        <Box>
+        <Box sx={{ marginBottom: 12 }}>
           {/* Header */}
           <Box
+            sx={{ marginBottom: 4 }}
             ref={sectionsData[1].ref}
             className={sectionsData[1].label}
-            sx={{ marginBottom: 4 }}
           >
             <Typography
               variant="h5"
@@ -352,7 +367,7 @@ function App() {
           </Box>
 
           {/* Get transaction section */}
-          <Box sx={{ marginBottom: 12 }}>
+          <Box sx={{ marginBottom: 4 }}>
             <DefaultSubSection
               title={"Get Transactions"}
               variant={"API"}
@@ -435,7 +450,7 @@ function App() {
             }
           />
           <Box sx={{ marginBottom: 4 }}>
-            <Typography variant="h5" sx={{ marginBottom: 1 }}>
+            <Typography variant="h6" sx={{ marginBottom: 1 }}>
               Example Request
             </Typography>
             <SyntaxHighlighter language="xml" style={dracula} showLineNumbers>
@@ -443,16 +458,16 @@ function App() {
             </SyntaxHighlighter>
           </Box>
           <Box sx={{ marginBottom: 4 }}>
-            <Typography variant="h5" sx={{ marginBottom: 1 }}>
+            <Typography variant="h6" sx={{ marginBottom: 1 }}>
               Example Response
             </Typography>
             <SyntaxHighlighter
-                language="javascript"
-                style={dracula}
-                showLineNumbers
-              >
-                {core_second_response}
-              </SyntaxHighlighter>
+              language="javascript"
+              style={dracula}
+              showLineNumbers
+            >
+              {core_second_response}
+            </SyntaxHighlighter>
           </Box>
           <Accordion
             expanded={expanded === "panel3"}
@@ -462,10 +477,10 @@ function App() {
               aria-controls="panel3d-content"
               id="panel3d-header"
             >
-              <Typography variant="h5">Parameters</Typography>
+              <Typography variant="h6">Parameters</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography variant="h6">
+              <Typography variant="body1">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
                 eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -510,7 +525,7 @@ function App() {
               }
             />
             <Box sx={{ marginBottom: 4 }}>
-              <Typography variant="h5" sx={{ marginBottom: 1 }}>
+              <Typography variant="h6" sx={{ marginBottom: 1 }}>
                 Example Request
               </Typography>
               <SyntaxHighlighter language="xml" style={dracula} showLineNumbers>
@@ -518,7 +533,7 @@ function App() {
               </SyntaxHighlighter>
             </Box>
             <Box sx={{ marginBottom: 4 }}>
-              <Typography variant="h5" sx={{ marginBottom: 1 }}>
+              <Typography variant="h6" sx={{ marginBottom: 1 }}>
                 Example Response
               </Typography>
               <SyntaxHighlighter
@@ -537,10 +552,10 @@ function App() {
                 aria-controls="panel5d-content"
                 id="panel5d-header"
               >
-                <Typography variant="h5">Parameters</Typography>
+                <Typography variant="h6">Parameters</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography variant="h6">
+                <Typography variant="body1">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                   Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
                   eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -586,7 +601,7 @@ function App() {
               }
             />
             <Box sx={{ marginBottom: 4 }}>
-              <Typography variant="h5" sx={{ marginBottom: 1 }}>
+              <Typography variant="h6" sx={{ marginBottom: 1 }}>
                 Example Request
               </Typography>
               <SyntaxHighlighter language="xml" style={dracula} showLineNumbers>
@@ -594,7 +609,7 @@ function App() {
               </SyntaxHighlighter>
             </Box>
             <Box sx={{ marginBottom: 4 }}>
-              <Typography variant="h5" sx={{ marginBottom: 1 }}>
+              <Typography variant="h6" sx={{ marginBottom: 1 }}>
                 Example Response
               </Typography>
               <SyntaxHighlighter
@@ -613,10 +628,10 @@ function App() {
                 aria-controls="panel7d-content"
                 id="panel7d-header"
               >
-                <Typography variant="h5">Parameters</Typography>
+                <Typography variant="h6">Parameters</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography variant="h6">
+                <Typography variant="body1">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                   Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
                   eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -651,6 +666,270 @@ function App() {
     );
   };
 
+  const HelperEvents = () => {
+    return (
+      <div>
+        <Box sx={{ marginBottom: 12 }}>
+          {/* Header */}
+          <Box
+            ref={sectionsData[5].ref}
+            className={sectionsData[5].label}
+            sx={{ marginBottom: 4 }}
+          >
+            <Typography
+              variant="h5"
+              sx={{ textDecoration: "underline", textUnderlineOffset: 8 }}
+            >
+              Helper Events
+            </Typography>
+          </Box>
+
+          {/* Get transaction section */}
+          <Box sx={{ marginBottom: 12 }}>
+            <DefaultSubSection
+              title={"Get Distinct Flat Types"}
+              variant={"API"}
+              body={
+                "Proident esse adipisicing esse do ea reprehenderit labore tempor eiusmod non velit eiusmod consectetur. Nisi est non laborum pariatur culpa laboris duis proident adipisicing do do. Laboris amet amet elit sit ullamco. Elit veniam aliquip aute sint enim exercitation ullamco do irure occaecat. Eu Lorem ex magna occaecat. In deserunt exercitation est amet exercitation officia sunt proident excepteur qui aute tempor. Consectetur non occaecat excepteur adipisicing deserunt enim occaecat duis cillum occaecat consectetur eiusmod."
+              }
+            />
+            <Box sx={{ marginBottom: 4 }}>
+              <Typography variant="h6" sx={{ marginBottom: 1 }}>
+                Example Request
+              </Typography>
+              <SyntaxHighlighter language="xml" style={dracula} showLineNumbers>
+                http://localhost:3000/SG-HDB-Resale-API-Service/
+              </SyntaxHighlighter>
+            </Box>
+            <Box sx={{ marginBottom: 4 }}>
+              <Typography variant="h6" sx={{ marginBottom: 1 }}>
+                Example Response
+              </Typography>
+              <SyntaxHighlighter
+                language="javascript"
+                style={dracula}
+                showLineNumbers
+              >
+                {core_first_response}
+              </SyntaxHighlighter>
+            </Box>
+            <Accordion
+              expanded={expanded === "panel9"}
+              onChange={handleChange("panel9")}
+            >
+              <AccordionSummary
+                aria-controls="panel9d-content"
+                id="panel9d-header"
+              >
+                <Typography variant="h6">Parameters</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography variant="body1">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
+                  eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
+                  eget.
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion
+              expanded={expanded === "panel10"}
+              onChange={handleChange("panel10")}
+            >
+              <AccordionSummary
+                aria-controls="panel10d-content"
+                id="panel10d-header"
+              >
+                <Typography variant="h6">Response Schema</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography variant="body1">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
+                  eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
+                  eget.
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+          </Box>
+        </Box>
+        <Box
+          ref={sectionsData[6].ref}
+          className={sectionsData[6].label}
+          sx={{ marginBottom: 12 }}
+        >
+          <DefaultSubSection
+            title={"Get Distinct Street Names"}
+            variant={"API"}
+            body={
+              "Proident esse adipisicing esse do ea reprehenderit labore tempor eiusmod non velit eiusmod consectetur. Nisi est non laborum pariatur culpa laboris duis proident adipisicing do do. Laboris amet amet elit sit ullamco. Elit veniam aliquip aute sint enim exercitation ullamco do irure occaecat. Eu Lorem ex magna occaecat. In deserunt exercitation est amet exercitation officia sunt proident excepteur qui aute tempor. Consectetur non occaecat excepteur adipisicing deserunt enim occaecat duis cillum occaecat consectetur eiusmod."
+            }
+          />
+          <Box sx={{ marginBottom: 4 }}>
+            <Typography variant="h6" sx={{ marginBottom: 1 }}>
+              Example Request
+            </Typography>
+            <SyntaxHighlighter language="xml" style={dracula} showLineNumbers>
+              http://localhost:3000/SG-HDB-Resale-API-Service/
+            </SyntaxHighlighter>
+          </Box>
+          <Box sx={{ marginBottom: 4 }}>
+            <Typography variant="h6" sx={{ marginBottom: 1 }}>
+              Example Response
+            </Typography>
+            <SyntaxHighlighter
+              language="javascript"
+              style={dracula}
+              showLineNumbers
+            >
+              {core_second_response}
+            </SyntaxHighlighter>
+          </Box>
+          <Accordion
+            expanded={expanded === "panel11"}
+            onChange={handleChange("panel11")}
+          >
+            <AccordionSummary
+              aria-controls="panel11d-content"
+              id="panel11d-header"
+            >
+              <Typography variant="h6">Parameters</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography variant="body1">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
+                eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
+                eget.
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion
+            expanded={expanded === "panel12"}
+            onChange={handleChange("panel12")}
+          >
+            <AccordionSummary
+              aria-controls="panel12d-content"
+              id="panel12d-header"
+            >
+              <Typography variant="h5">Response Schema</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography variant="h6">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
+                eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
+                eget.
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+        </Box>
+      </div>
+    );
+  };
+
+  const SampleUseCases = () => {
+    return (
+      <Box component="section" sx={{ marginBottom: 12 }}>
+        <Box
+          ref={sectionsData[7].ref}
+          className={sectionsData[7].label}
+          sx={{ marginBottom: 4 }}
+        >
+          <Typography
+            variant="h5"
+            sx={{ textDecoration: "underline", textUnderlineOffset: 8 }}
+          >
+            Sample Use Cases
+          </Typography>
+        </Box>
+        <Box>
+          <DefaultSubSection
+            title={"API Documentation"}
+            body={
+              "Proident esse adipisicing esse do ea reprehenderit labore tempor eiusmod non velit eiusmod consectetur. Nisi est non laborum pariatur culpa laboris duis proident adipisicing do do. Laboris amet amet elit sit ullamco. Elit veniam aliquip aute sint enim exercitation ullamco do irure occaecat. Eu Lorem ex magna occaecat. In deserunt exercitation est amet exercitation officia sunt proident excepteur qui aute tempor. Consectetur non occaecat excepteur adipisicing deserunt enim occaecat duis cillum occaecat consectetur eiusmod."
+            }
+          />
+          <DefaultSubSection
+            title={"Usage"}
+            body={
+              "Proident esse adipisicing esse do ea reprehenderit labore tempor eiusmod non velit eiusmod consectetur. Nisi est non laborum pariatur culpa laboris duis proident adipisicing do do. Laboris amet amet elit sit ullamco. Elit veniam aliquip aute sint enim exercitation ullamco do irure occaecat. Eu Lorem ex magna occaecat. In deserunt exercitation est amet exercitation officia sunt proident excepteur qui aute tempor. Consectetur non occaecat excepteur adipisicing deserunt enim occaecat duis cillum occaecat consectetur eiusmod."
+            }
+          />
+          <DefaultSubSection
+            title={"Response Types"}
+            body={
+              "Proident esse adipisicing esse do ea reprehenderit labore tempor eiusmod non velit eiusmod consectetur. Nisi est non laborum pariatur culpa laboris duis proident adipisicing do do. Laboris amet amet elit sit ullamco. Elit veniam aliquip aute sint enim exercitation ullamco do irure occaecat. Eu Lorem ex magna occaecat. In deserunt exercitation est amet exercitation officia sunt proident excepteur qui aute tempor. Consectetur non occaecat excepteur adipisicing deserunt enim occaecat duis cillum occaecat consectetur eiusmod."
+            }
+          />
+          <DefaultSubSection
+            title={"Response Codes"}
+            body={
+              "Proident esse adipisicing esse do ea reprehenderit labore tempor eiusmod non velit eiusmod consectetur. Nisi est non laborum pariatur culpa laboris duis proident adipisicing do do. Laboris amet amet elit sit ullamco. Elit veniam aliquip aute sint enim exercitation ullamco do irure occaecat. Eu Lorem ex magna occaecat. In deserunt exercitation est amet exercitation officia sunt proident excepteur qui aute tempor. Consectetur non occaecat excepteur adipisicing deserunt enim occaecat duis cillum occaecat consectetur eiusmod."
+            }
+          />
+        </Box>
+      </Box>
+    );
+  };
+
+  const ProjectRoadmap = () => {
+    return (
+      <Box component="section" sx={{ marginBottom: 12 }}>
+        <Box
+          ref={sectionsData[8].ref}
+          className={sectionsData[8].label}
+          sx={{ marginBottom: 4 }}
+        >
+          <Typography
+            variant="h5"
+            sx={{ textDecoration: "underline", textUnderlineOffset: 8 }}
+          >
+            Project Roadmap
+          </Typography>
+        </Box>
+        <Box>
+          <DefaultSubSection
+            title={"API Documentation"}
+            body={
+              "Proident esse adipisicing esse do ea reprehenderit labore tempor eiusmod non velit eiusmod consectetur. Nisi est non laborum pariatur culpa laboris duis proident adipisicing do do. Laboris amet amet elit sit ullamco. Elit veniam aliquip aute sint enim exercitation ullamco do irure occaecat. Eu Lorem ex magna occaecat. In deserunt exercitation est amet exercitation officia sunt proident excepteur qui aute tempor. Consectetur non occaecat excepteur adipisicing deserunt enim occaecat duis cillum occaecat consectetur eiusmod."
+            }
+          />
+          <DefaultSubSection
+            title={"Usage"}
+            body={
+              "Proident esse adipisicing esse do ea reprehenderit labore tempor eiusmod non velit eiusmod consectetur. Nisi est non laborum pariatur culpa laboris duis proident adipisicing do do. Laboris amet amet elit sit ullamco. Elit veniam aliquip aute sint enim exercitation ullamco do irure occaecat. Eu Lorem ex magna occaecat. In deserunt exercitation est amet exercitation officia sunt proident excepteur qui aute tempor. Consectetur non occaecat excepteur adipisicing deserunt enim occaecat duis cillum occaecat consectetur eiusmod."
+            }
+          />
+          <DefaultSubSection
+            title={"Response Types"}
+            body={
+              "Proident esse adipisicing esse do ea reprehenderit labore tempor eiusmod non velit eiusmod consectetur. Nisi est non laborum pariatur culpa laboris duis proident adipisicing do do. Laboris amet amet elit sit ullamco. Elit veniam aliquip aute sint enim exercitation ullamco do irure occaecat. Eu Lorem ex magna occaecat. In deserunt exercitation est amet exercitation officia sunt proident excepteur qui aute tempor. Consectetur non occaecat excepteur adipisicing deserunt enim occaecat duis cillum occaecat consectetur eiusmod."
+            }
+          />
+          <DefaultSubSection
+            title={"Response Codes"}
+            body={
+              "Proident esse adipisicing esse do ea reprehenderit labore tempor eiusmod non velit eiusmod consectetur. Nisi est non laborum pariatur culpa laboris duis proident adipisicing do do. Laboris amet amet elit sit ullamco. Elit veniam aliquip aute sint enim exercitation ullamco do irure occaecat. Eu Lorem ex magna occaecat. In deserunt exercitation est amet exercitation officia sunt proident excepteur qui aute tempor. Consectetur non occaecat excepteur adipisicing deserunt enim occaecat duis cillum occaecat consectetur eiusmod."
+            }
+          />
+        </Box>
+      </Box>
+    );
+  };
+
+  const Footer = () => {
+    return (
+      <Box component="footer" sx={{ p: 20 }}>
+        <Typography>Footer</Typography>
+      </Box>
+    );
+  };
+
   return (
     <div>
       <header>
@@ -663,6 +942,10 @@ function App() {
             <Toolbar />
             <IntroSection />
             <CoreEvents />
+            <HelperEvents />
+            <SampleUseCases />
+            <ProjectRoadmap />
+            <Footer />
           </Box>
         </Box>
       </header>
